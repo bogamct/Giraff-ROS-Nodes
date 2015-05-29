@@ -1,0 +1,36 @@
+# Giraff-ROS-Nodes
+Instructions to start a demo
+Before starting ROS we need to upload node to processors
+
+1. This link:(https://github.com/bogamct/Giraff-ROS-Nodes/blob/master/MotorControl-encoders-ROSnode) consists of motorControl with EncoderInfo ROSnode which has to be uploaded in Giraff low level board (ATmega644 ,which is connected to S0 port of on board computer) using Arduino IDE   
+2. This link :(https://github.com/bogamct/Giraff-ROS-Nodes/blob/master/Acceleromoter-NODE) consists of Accelerometer ROSnode which has to be uploaded in ArduinoUNO assembled with 9 Axes Motion Sheild.
+3. This link :(https://github.com/Karthik-Sur/Ultrasonic_Sensor/blob/master/Timer_ROS/Timer_ROS.ino) consists of Ultasonic ROSnode which has to be uploaded in Arduino Mega(where Ultrasonic Sensors are connected ) 
+
+4. The below commands should be in Giraff on board computer
+.bashrc file should consists of
+export ROS_IP=192.168.1.143
+export ROS_MASTER_URI=http://192.168.1.143:11311
+
+4.1 In a terminal (start ROS MASTER)
+    ssh giraff@192.168.1.143
+    roscore
+4.2 In new terminal (start motorControl with EncoderInfo ROSnode)
+    ssh giraff@192.168.1.143
+    rosrun rosserial_python serial_node1.py _port:=/dev/ttyS0
+4.3 In new terminal (start Ultrasonic node )
+    ssh giraff@192.168.1.143
+    source ~/catkin_ws/devel/setup.bash
+    rosrun rosserial_python serial_node2.py _port:=/dev/ttyACM0
+
+    
+5.These commands has to be uploaded in the computer where Accelerometer is connected
+.bashrc file should consists of
+export ROS_MASTER_URI=http://192.168.1.143:11311 (this command is used to mention that Giraff computer has ROS master)
+export ROS_IP=<computer's IP addresss>
+In terminal 
+5.1 rosrun rosserial_python serial_node.py _port:=/dev/ttyUSB0
+    
+    
+    Now you can control robot through Accelerometer and track data using rostopic echo /topicname
+    
+    

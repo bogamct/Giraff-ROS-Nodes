@@ -1,1 +1,0 @@
-# Giraff-ROS-Nodes
